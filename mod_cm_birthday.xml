@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <extension type="module" version="3.2" client="site" method="upgrade">
 	<name>ClubManagement Birthday</name>
-	<creationDate>February 2015</creationDate>
+	<creationDate>March 2015</creationDate>
 	<author>Norbert Kuemin</author>
 	<authorEmail>momo_102@bluemail.ch</authorEmail>
 	<copyright>(C) 2011-2015 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>3.0.1</version>
+	<version>3.0.2</version>
 	<description>MOD_CM_BIRTHDAY_XML_DESC</description>
 	<files>
 		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
