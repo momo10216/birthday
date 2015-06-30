@@ -60,6 +60,6 @@
 		</fields>
 	</config>
     <updateservers>
-	<server type="extension" priority="2" name="Club Management Updates">http://kuem.in/joomlaupdate/mod_cm_birthday.xml</server>
+	<server type="extension" priority="2" name="Club Management Birthday Updates">http://kuem.in/joomlaupdate/mod_cm_birthday.xml</server>
     </updateservers>
 </extension>
