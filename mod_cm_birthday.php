@@ -24,32 +24,41 @@ function getBirthdayData($fields, $where, $order) {
 	return $data;
 }
 
-function displayBirthdays($items, $details, $cols, $colcount, $params, $cmparams, $uri, $bdtext="") {
+function displayBirthdays($type, $items, $details, $cols, $colcount, $params, $cmparams, $uri, $bdtext="") {
 	$name = array();
+	$collink = $params->get('detail_column_link');
+	$coloffset  = 4;
 	foreach($items as $item) {
 		$row = (array) $item;
 		$birthday = array_pop($row);
+		$birthdate = array_pop($row);
 		$id = array_pop($row);
+		$row = array_values($row);
 		if ($details) {
 			$uri->setVar("id",$id);
 		}
 		for($j=0;$j<$colcount;$j++) {
-			if ($details && ($params->get( 'detail_column_link' ) == $cols[$j])) {
+			if ($details && ($collink == $cols[$j])) {
 				$row[$j] = "<a href=\"".$uri->toString()."\" class=\"modal\" rel=\"{handler: 'iframe', size: {x: ".$cmparams->get( 'detail_width' ).", y: ".$cmparams->get( 'detail_height' )."}}\">".$row[$j]."</a>";
 			}
 		}
+		$agetext = "";
+		if ($params->get( 'column_next_age' ) == "1") {
+			$age = JHTML::_('date', $birthday, "Y") - JHTML::_('date', $birthdate, "Y");
+			$agetext = ", ".$age." ".JText::_('MOD_CM_BIRTHDAY_FIELD_UPCOMMING_AGE_YEARS');
+		}
 		if ($bdtext != "") {
-			$birthday = " <span class=\"cmbirth_today_person_birthday\">(".$bdtext.")</span>";
+			$birthday = " <span class=\"cmbirth_".$type."_person_birthday\">(".$bdtext.$agetext.")</span>";
 		} else {
 			switch ($params->get('column_next')) {
 				case "1": //(Weekday)
-					$birthday = " <span class=\"cmbirth_today_person_birthday\">(".JHTML::_('date', $birthday, "D").")</span>";
+					$birthday = " <span class=\"cmbirth_".$type."_person_birthday\">(".JHTML::_('date', $birthday, "D").$agetext.")</span>";
 					break;
 				case "2": //(month/day)
-					$birthday = " <span class=\"cmbirth_today_person_birthday\">(".JHTML::_('date', $birthday, "m/d").")</span>";
+					$birthday = " <span class=\"cmbirth_".$type."_person_birthday\">(".JHTML::_('date', $birthday, "m/d").$agetext.")</span>";
 					break;
 				case "3": //(day.month)
-					$birthday = " <span class=\"cmbirth_today_person_birthday\">(".JHTML::_('date', $birthday, "d.m").")</span>";
+					$birthday = " <span class=\"cmbirth_".$type."_person_birthday\">(".JHTML::_('date', $birthday, "d.m").$agetext.")</span>";
 					break;
 				default:
 					$birthday = "";
@@ -101,6 +110,7 @@ for ($i=1;$i<=4;$i++)
 }
 $colcount = count($cols);
 $cols[] = "person_id";
+$cols[] = "person_birthday";
 $cols[] = "person_nextbirthday";
 $fields = $memberModel->translateFieldsToColumns($cols,false);
 
@@ -152,7 +162,7 @@ if (count($dataToday) > 0) {
 	if ($title_today != "") {
 		echo "\t\t<div class=\"cmbirth_today_title\">".$title_today."</div>\n";
 	}
-	$name = displayBirthdays($dataToday, $details, $cols, $colcount, $params, $cmparams, $uri, JText::_("Today"));
+	$name = displayBirthdays("today", $dataToday, $details, $cols, $colcount, $params, $cmparams, $uri, JText::_("Today"));
 	echo "\t\t<div class=\"cmbirth_today_person\">".implode($params->get('delimiter'),$name)."</div>\n";
 	echo "\t</div>\n";
 }
@@ -161,8 +171,8 @@ if (count($dataNext) > 0) {
 	if ($title_next != "") {
 		echo "\t\t<div class=\"cmbirth_next_title\">".$title_next."</div>\n";
 	}
-	$name = displayBirthdays($dataNext, $details, $cols, $colcount, $params, $cmparams, $uri);
-	echo "\t\t<div class=\"cmbirth_today_person\">".implode($params->get('delimiter'),$name)."</div>\n";
+	$name = displayBirthdays("next", $dataNext, $details, $cols, $colcount, $params, $cmparams, $uri);
+	echo "\t\t<div class=\"cmbirth_next_person\">".implode($params->get('delimiter'),$name)."</div>\n";
 	echo "\t</div>\n";
 }
 echo "</div>\n";
