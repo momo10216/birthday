@@ -68,9 +68,9 @@ function displayBirthdays($type, $items, $details, $cols, $colcount, $params, $c
 			}
 		}
 		if ($details && ($params->get('detail_column_link') != '')) {
-			$name[] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').", y: ".$cmparams->get('detail_height').'}}">'.implode(' ',$row).'</a>'.$birthday;
+			$name[] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').", y: ".$cmparams->get('detail_height').'}}">'.htmlspecialchars(implode(' ',$row), ENT_QUOTES, 'UTF-8').'</a>'.$birthday;
 		} else {
-			$name[] = implode(' ',$row).$birthday;
+			$name[] = htmlspecialchars(implode(' ',$row), ENT_QUOTES, 'UTF-8').$birthday;
 		}
 	}
 	return $name;
@@ -168,7 +168,7 @@ if (count($dataNext) > 0) {
 		echo $TAB.$TAB.'<div class="cmbirth_next_title">'.$title_next.'</div>'.$EOL;
 	}
 	$name = displayBirthdays('next', $dataNext, $details, $cols, $colcount, $params, $cmparams, $uri);
-	echo $TAB.$TAB.'<div class="cmbirth_next_person">'.htmlspecialchars(implode($params->get('delimiter'),$name), ENT_QUOTES, 'UTF-8').'</div>'.$EOL;
+	echo $TAB.$TAB.'<div class="cmbirth_next_person">'.implode($params->get('delimiter'),$name).'</div>'.$EOL;
 	echo $TAB.'</div>'.$EOL;
 }
 echo '</div>'.$EOL;
