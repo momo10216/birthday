@@ -3,12 +3,14 @@
 * @version	$Id$
 * @package	Joomla
 * @subpackage	Module nok_cm_birthday
-* @copyright	Copyright (c) 2014 Norbert Kümin. All rights reserved.
+* @copyright	Copyright (c) 2014 Norbert Kuemin. All rights reserved.
 * @license	http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE
 * @author	Norbert Kuemin
 * @authorEmail	momo_102@bluemail.ch
 */
-defined( '_JEXEC' ) or die;
+
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die('Restricted access');
 
 function getBirthdayData($fields, $where, $order) {
 	$fields[0] = 'DISTINCT '.$fields[0]; //Ugly hack to eliminate duplicates

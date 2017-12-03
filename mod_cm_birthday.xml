@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <extension type="module" version="3.2" client="site" method="upgrade">
-	<name>ClubManagement Birthday</name>
+	<name>MOD_CM_BIRTHDAY_XML_NAME</name>
 	<creationDate>August 2016</creationDate>
 	<author>Norbert Kuemin</author>
 	<authorEmail>momo_102@bluemail.ch</authorEmail>
 	<copyright>(C) 2011-2016 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>3.0.4</version>
+	<version>3.0.5</version>
 	<description>MOD_CM_BIRTHDAY_XML_DESC</description>
 	<files>
+		<filename>index.html</filename>
 		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
 	</files>
 	<languages folder="language">
@@ -64,6 +65,6 @@
 		</fields>
 	</config>
     <updateservers>
-	<server type="extension" priority="2" name="Club Management Birthdate Updates">http://kuem.in/joomlaupdate/mod_cm_birthday.xml</server>
+	<server type="extension" priority="2" name="MOD_CM_BIRTHDAY_XML_UPDATE">http://kuem.in/joomlaupdate/mod_cm_birthday.xml</server>
     </updateservers>
 </extension>
