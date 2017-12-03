@@ -12,21 +12,29 @@
 		<filename>index.html</filename>
 		<filename module="mod_cm_birthday">mod_cm_birthday.php</filename>
 	</files>
-	<languages folder="language">
+	<languages folder="language/site">
 		<language tag="en-GB">en-GB.mod_cm_birthday.ini</language>
 		<language tag="de-DE">de-DE.mod_cm_birthday.ini</language>
 		<language tag="en-GB">en-GB.mod_cm_birthday.sys.ini</language>
 		<language tag="de-DE">de-DE.mod_cm_birthday.sys.ini</language>
 	</languages>
 	<media />
+	<administration>
+		<languages folder="language/admin">
+			<language tag="en-GB">en-GB.mod_cm_birthday.ini</language>
+			<language tag="en-GB">en-GB.mod_cm_birthday.sys.ini</language>
+			<language tag="de-DE">de-DE.mod_cm_birthday.ini</language>
+			<language tag="de-DE">de-DE.mod_cm_birthday.sys.ini</language>
+		</languages>
+	</administration>
 	<config>
 		<fields name="params">
 			<fieldset name="basic"
 				  addfieldpath="/administrator/components/com_clubmanagement/models/fields">
 				<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="false"/>
 				<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_DESC">
-					<option value="current">Current</option>
-					<option value="closed">Terminated</option>
+					<option value="current">COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_CURRENT</option>
+					<option value="closed">COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_TERMINATED</option>
 					<option value="all">JALL</option>
 				</field>
 				<field name="publicity" type="list" default="published" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_PUBLISHED_DESC">
@@ -64,7 +72,7 @@
 			</fieldset>
 		</fields>
 	</config>
-    <updateservers>
-	<server type="extension" priority="2" name="MOD_CM_BIRTHDAY_XML_UPDATE">http://kuem.in/joomlaupdate/mod_cm_birthday.xml</server>
-    </updateservers>
+	<updateservers>
+		<server type="extension" priority="2" name="MOD_CM_BIRTHDAY_XML_UPDATE">http://kuem.in/joomlaupdate/mod_cm_birthday.xml</server>
+	</updateservers>
 </extension>

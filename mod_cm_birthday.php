@@ -158,7 +158,7 @@ if (count($dataToday) > 0) {
 	if (!empty($title_today)) {
 		echo $TAB.$TAB.'<div class="cmbirth_today_title">'.$title_today.'</div>'.$EOL;
 	}
-	$name = displayBirthdays('today', $dataToday, $details, $cols, $colcount, $params, $cmparams, $uri, JText::_('Today'));
+	$name = displayBirthdays('today', $dataToday, $details, $cols, $colcount, $params, $cmparams, $uri, JText::_('MOD_CM_BIRTHDAY_TODAY'));
 	echo $TAB.$TAB.'<div class="cmbirth_today_person">'.implode($params->get('delimiter'),$name).'</div>'.$EOL;
 	echo $TAB.'</div>'.$EOL;
 }
@@ -168,7 +168,7 @@ if (count($dataNext) > 0) {
 		echo $TAB.$TAB.'<div class="cmbirth_next_title">'.$title_next.'</div>'.$EOL;
 	}
 	$name = displayBirthdays('next', $dataNext, $details, $cols, $colcount, $params, $cmparams, $uri);
-	echo $TAB.$TAB.'<div class="cmbirth_next_person">'.implode($params->get('delimiter'),$name).'</div>'.$EOL;
+	echo $TAB.$TAB.'<div class="cmbirth_next_person">'.htmlspecialchars(implode($params->get('delimiter'),$name), ENT_QUOTES, 'UTF-8').'</div>'.$EOL;
 	echo $TAB.'</div>'.$EOL;
 }
 echo '</div>'.$EOL;
