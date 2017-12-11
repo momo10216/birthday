@@ -41,7 +41,9 @@ function displayBirthdays($type, $items, $details, $cols, $colcount, $params, $c
 		}
 		for($j=0;$j<$colcount;$j++) {
 			if ($details && ($collink == $cols[$j])) {
-				$row[$j] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').', y: '.$cmparams->get('detail_height').'}}">'.$row[$j].'</a>';
+				$row[$j] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').', y: '.$cmparams->get('detail_height').'}}">'.htmlspecialchars($row[$j], ENT_QUOTES, 'UTF-8').'</a>';
+			} else {
+				$row[$j] = htmlspecialchars($row[$j], ENT_QUOTES, 'UTF-8');
 			}
 		}
 		$agetext = '';
@@ -68,7 +70,7 @@ function displayBirthdays($type, $items, $details, $cols, $colcount, $params, $c
 			}
 		}
 		if ($details && ($params->get('detail_column_link') != '')) {
-			$name[] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').", y: ".$cmparams->get('detail_height').'}}">'.htmlspecialchars(implode(' ',$row), ENT_QUOTES, 'UTF-8').'</a>'.$birthday;
+			$name[] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').", y: ".$cmparams->get('detail_height').'}}">'.implode(' ',$row).'</a>'.$birthday;
 		} else {
 			$name[] = htmlspecialchars(implode(' ',$row), ENT_QUOTES, 'UTF-8').$birthday;
 		}
