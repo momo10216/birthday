@@ -99,6 +99,7 @@ if ($params->get('detail_enable') != '0') {
 	$uri->setVar('option','com_clubmanagement');
 	$uri->setVar('view','person');
 	$uri->setVar('format','html');
+	$uri->setVar('iframe','1');
 }
 // Get columns
 $cols = array();
