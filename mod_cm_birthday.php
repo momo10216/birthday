@@ -70,7 +70,7 @@ function displayBirthdays($type, $items, $details, $cols, $colcount, $params, $c
 			}
 		}
 		if ($details && ($params->get('detail_column_link') != '')) {
-			$name[] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').", y: ".$cmparams->get('detail_height').'}}">'.implode(' ',$row).'</a>'.$birthday;
+			$name[] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').", y: ".$cmparams->get('detail_height').'}}">'.htmlspecialchars(implode(' ',$row), ENT_QUOTES, 'UTF-8').'</a>'.$birthday;
 		} else {
 			$name[] = htmlspecialchars(implode(' ',$row), ENT_QUOTES, 'UTF-8').$birthday;
 		}
@@ -99,7 +99,6 @@ if ($params->get('detail_enable') != '0') {
 	$uri->setVar('option','com_clubmanagement');
 	$uri->setVar('view','person');
 	$uri->setVar('format','html');
-	$uri->setVar('iframe','1');
 }
 // Get columns
 $cols = array();
