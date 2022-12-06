@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<extension type="module" version="3.2" client="site" method="upgrade">
-	<name>MOD_CM_BIRTHDAY_XML_NAME</name>
+<extension type="module" version="4.2" client="site" method="upgrade">
+	<name>MOD_CM_BIRTHDAY</name>
 	<creationDate>August 2016</creationDate>
 	<author>Norbert Kuemin</author>
 	<authorEmail>momo_102@bluemail.ch</authorEmail>
 	<copyright>(C) 2011-2016 Norbert Kuemin</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
-	<version>3.0.6</version>
+	<version>4.0.0</version>
 	<description>MOD_CM_BIRTHDAY_XML_DESC</description>
 	<files>
 		<filename>index.html</filename>
@@ -23,7 +23,7 @@
 		<fields name="params">
 			<fieldset name="basic"
 				  addfieldpath="/administrator/components/com_clubmanagement/models/fields">
-				<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="false"/>
+				<field name="membertype" type="cmselection" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_TYPE_DESC" paramname="member_types" hide_none="false" multiple="true"/>
 				<field name="memberstate" type="list" default="current" label="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_LABEL" description="COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_DESC">
 					<option value="current">COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_CURRENT</option>
 					<option value="closed">COM_CLUBMANAGEMENT_MEMBERSHIPS_FIELD_STATE_TERMINATED</option>
@@ -55,12 +55,6 @@
 				<field name="titel_next" type="text" size="50" default="" label="MOD_CM_BIRTHDAY_TITEL_NEXT_LABEL" description="MOD_CM_BIRTHDAY_TITEL_NEXT_DESC"/>
 				<field name="delimiter" type="text" size="50" default=", " label="MOD_CM_BIRTHDAY_DELIMITER_LABEL" description="MOD_CM_BIRTHDAY_DELIMITER_DESC"/>
 				<field name="css" type="textarea" default="" label="MOD_CM_BIRTHDAY_CSS_LABEL" description="MOD_CM_BIRTHDAY_CSS_DESC" rows="5" cols="50"/>
-				<field name="@spacer" type="spacer" default="" label="" description="" />
-				<field name="detail_enable" type="radio" default="0" label="MOD_CM_BIRTHDAY_ENABLE_DETAILS_LABEL" description="MOD_CM_BIRTHDAY_ENABLE_DETAILS_DESC">
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-				<field name="detail_column_link" type="cmmembershipcolumn" columntype="view" default="" label="MOD_CM_BIRTHDAY_DETAIL_LINK_COLUMN_LABEL" description="MOD_CM_BIRTHDAY_DETAIL_LINK_COLUMN_DESC"/>
 			</fieldset>
 		</fields>
 	</config>

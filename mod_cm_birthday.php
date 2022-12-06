@@ -12,6 +12,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Uri\Uri;
+
 function getBirthdayData($fields, $where, $order) {
 	$fields[0] = 'DISTINCT '.$fields[0]; //Ugly hack to eliminate duplicates
 	$db = JFactory::getDBO();
@@ -26,9 +28,8 @@ function getBirthdayData($fields, $where, $order) {
 	return $data;
 }
 
-function displayBirthdays($type, $items, $details, $cols, $colcount, $params, $cmparams, $uri, $bdtext='') {
+function displayBirthdays($type, $items, $cols, $colcount, $params, $cmparams, $bdtext='') {
 	$name = array();
-	$collink = $params->get('detail_column_link');
 	$coloffset  = 4;
 	foreach($items as $item) {
 		$row = (array) $item;
@@ -36,15 +37,8 @@ function displayBirthdays($type, $items, $details, $cols, $colcount, $params, $c
 		$birthdate = array_pop($row);
 		$id = array_pop($row);
 		$row = array_values($row);
-		if ($details) {
-			$uri->setVar("id",$id);
-		}
 		for($j=0;$j<$colcount;$j++) {
-			if ($details && ($collink == $cols[$j])) {
-				$row[$j] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').', y: '.$cmparams->get('detail_height').'}}">'.htmlspecialchars($row[$j], ENT_QUOTES, 'UTF-8').'</a>';
-			} else {
-				$row[$j] = htmlspecialchars($row[$j], ENT_QUOTES, 'UTF-8');
-			}
+            $row[$j] = htmlspecialchars($row[$j], ENT_QUOTES, 'UTF-8');
 		}
 		$agetext = '';
 		if ($params->get('column_next_age') == '1') {
@@ -69,11 +63,7 @@ function displayBirthdays($type, $items, $details, $cols, $colcount, $params, $c
 					break;
 			}
 		}
-		if ($details && ($params->get('detail_column_link') != '')) {
-			$name[] = '<a href="'.$uri->toString().'" class="modal" rel="{handler: \'iframe\', size: {x: '.$cmparams->get('detail_width').", y: ".$cmparams->get('detail_height').'}}">'.htmlspecialchars(implode(' ',$row), ENT_QUOTES, 'UTF-8').'</a>'.$birthday;
-		} else {
-			$name[] = htmlspecialchars(implode(' ',$row), ENT_QUOTES, 'UTF-8').$birthday;
-		}
+		$name[] = implode(' ',$row).$birthday;
 	}
 	return $name;
 }
@@ -89,17 +79,6 @@ $days = intval($params->get('days_before'));
 $title_today = $params->get('title_today');
 $title_next = $params->get('title_next');
 $details = false;
-$curi = JFactory::getURI();
-$uri = JURI::getInstance($curi->toString());
-if ($params->get('detail_enable') != '0') {
-	$details = true;
-	$uri->setVar('layout','detail');
-	$uri->setVar('tmpl','component');
-	$uri->setVar('Itemid','');
-	$uri->setVar('option','com_clubmanagement');
-	$uri->setVar('view','person');
-	$uri->setVar('format','html');
-}
 // Get columns
 $cols = array();
 for ($i=1;$i<=4;$i++) {
@@ -126,8 +105,13 @@ if ($params->get('memberstate') == 'current') {
 if ($params->get('memberstate') == 'closed') {
 	$whereList[] = '`m`.`end` IS NOT NULL AND NOT `m`.`end`=\'0000-00-00\'';
 }
-if ($params->get('membertype') != '') {
-	$whereList[] = '`m`.`type`=\''.$params->get('membertype').'\'';
+$membertype = $params->get('membertype');
+if (is_array($membertype)) {
+    $whereList[] = '`m`.`type` IN (\''.implode('\', \'',$membertype).'\')';
+} else {
+    if (($membertype != '*') && ($membertype != '')) {
+    	$whereList[] = '`m`.`type`=\''.$membertype.'\'';
+    }
 }
 if ($params->get('publicity') == 'published') {
 	$whereList[] = '`m`.`published`=1';
@@ -148,9 +132,6 @@ if ($days > 0) {
 	$dataNext = array();
 }
 // Display
-if ($details) {
-	JHTML::_('behavior.modal');
-}
 if ($params->get('css') != '') {
 	echo '<style type="text/css" media="screen">'.$EOL.$params->get('css').$EOL.'</style>'.$EOL;
 }
@@ -160,7 +141,7 @@ if (count($dataToday) > 0) {
 	if (!empty($title_today)) {
 		echo $TAB.$TAB.'<div class="cmbirth_today_title">'.$title_today.'</div>'.$EOL;
 	}
-	$name = displayBirthdays('today', $dataToday, $details, $cols, $colcount, $params, $cmparams, $uri, JText::_('MOD_CM_BIRTHDAY_TODAY'));
+	$name = displayBirthdays('today', $dataToday, $cols, $colcount, $params, $cmparams, JText::_('MOD_CM_BIRTHDAY_TODAY'));
 	echo $TAB.$TAB.'<div class="cmbirth_today_person">'.implode($params->get('delimiter'),$name).'</div>'.$EOL;
 	echo $TAB.'</div>'.$EOL;
 }
@@ -169,7 +150,7 @@ if (count($dataNext) > 0) {
 	if (!empty($title_next)) {
 		echo $TAB.$TAB.'<div class="cmbirth_next_title">'.$title_next.'</div>'.$EOL;
 	}
-	$name = displayBirthdays('next', $dataNext, $details, $cols, $colcount, $params, $cmparams, $uri);
+	$name = displayBirthdays('next', $dataNext, $cols, $colcount, $params, $cmparams);
 	echo $TAB.$TAB.'<div class="cmbirth_next_person">'.implode($params->get('delimiter'),$name).'</div>'.$EOL;
 	echo $TAB.'</div>'.$EOL;
 }
